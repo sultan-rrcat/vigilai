@@ -1,0 +1,8 @@
+__init__.py
+*.pyc
+*.env
+*.env.dev
+!app/logs/.gitkeep
+*.log
+*.mp4
+last_known_config.json

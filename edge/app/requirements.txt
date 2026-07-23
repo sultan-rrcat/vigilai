@@ -1,0 +1,11 @@
+torch
+torchvision
+torchaudio
+opencv-python-headless
+numpy
+scipy
+onnxruntime
+confluent-kafka
+requests
+pydantic>=2.0
+pydantic-settings

@@ -1,0 +1,10 @@
+.env
+.env.dev
+backend/logs/
+!backend/logs/.gitkeep
+*.pyc
+backend/incident_images/*.jpg
+!backend/incident_images/.gitkeep
+backend/camera_references/*.jpg
+!backend/camera_references/.gitkeep
+*.jpg

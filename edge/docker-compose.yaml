@@ -1,0 +1,29 @@
+name: vigil-edge
+
+services:
+  edge:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+      args:
+        HTTP_PROXY: ${HTTP_PROXY}
+        HTTPS_PROXY: ${HTTPS_PROXY}
+        NO_PROXY: ${NO_PROXY}
+    container_name: vigil-edge-cam01
+    restart: unless-stopped
+    environment:
+      CAMERA_ID: ${CAMERA_ID}
+      RTSP_URL: ${RTSP_URL}
+      KAFKA_BROKER: ${KAFKA_BROKER}        # e.g. 10.31.2.94:9095
+      CENTRAL_API_URL: ${CENTRAL_API_URL}  # e.g. http://10.31.2.94:8080
+      FRAME_STRIDE: ${FRAME_STRIDE:-3}
+      MODEL_PATH: ${MODEL_PATH:-/edge/app/models/yolo26n_coco_local_1.onnx}
+    volumes:
+      # Persist logs to host so they survive container restarts
+      - ./app/logs:/edge/app/logs
+      # Persist the offline config cache (config_sync.py writes last_known_config.json)
+      - vigil_edge_cache:/edge
+    network_mode: host  # needed to reach RTSP cameras on the local LAN
+
+volumes:
+  vigil_edge_cache:
